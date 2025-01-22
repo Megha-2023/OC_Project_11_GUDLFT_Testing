@@ -1,9 +1,7 @@
-# from tests.conftest import client, competitions, clubs
 
+class TestBookMoreThan12Places:
 
-class TestClubPointsDeduction:
-
-    def test_points_deducted_correct(self, client, competitions, clubs):
+    def test_book_12_places(self, client, competitions, clubs):
         response = client.post("/purchasePlaces", data={
             "competition": competitions[0]["competition"],
             "club": clubs[0]["name"],
@@ -13,12 +11,13 @@ class TestClubPointsDeduction:
         assert "Great-booking complete!" in response.data.decode()
         assert response.status_code == 200
 
-  
-    def test_points_deducted_wrong(self, client, competitions, clubs):
+
+    def test_book_more_than_12_places(self, client, competitions, clubs):
         response = client.post("/purchasePlaces", data={
             "competition": competitions[0]["competition"],
             "club": clubs[0]["name"],
-            "places": "13"
+            "places": "14"
         })
 
-        assert "You do not have enough points left to book the place." in response.data.decode()
+        assert "You cannot book more than 12 places per competition" in response.data.decode()
+        assert response.status_code == 400

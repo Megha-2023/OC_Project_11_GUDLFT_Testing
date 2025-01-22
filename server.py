@@ -49,6 +49,9 @@ def create_app(config):
         club = [c for c in clubs if c['name'] == request.form['club']][0]
         placesRequired = int(request.form['places'])
 
+        if placesRequired > 12:
+            return "You cannot book more than 12 places per competition", 400
+        
         if int(club['points']) < placesRequired:
             flash("You do not have enough points left to book the place.")
             return render_template('welcome.html', club=club, competitions=competitions)

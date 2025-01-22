@@ -21,7 +21,7 @@ def competitions():
 def clubs():
     return [
         {
-            "name": "She Lifts",
-            "points": "12"
+            "name": "Simply Lift",
+            "points": "13"
         }
     ]
