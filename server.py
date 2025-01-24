@@ -42,10 +42,8 @@ def create_app(config):
             if competition_date > datetime.now():
                 return render_template('booking.html', club=foundClub, competition=foundCompetition)
             
-            return f"""This Competition held on {str(datetime.strptime(foundCompetition['date'],
-                                                                       '%Y-%m-%d %H:%M:%S'))} \n
-                                                                       You cannot book places for
-                                                                       the past competitions.""", 400
+            return f"""You cannot book places for the past competitions.This Competition held on 
+                        {str(datetime.strptime(foundCompetition['date'],'%Y-%m-%d %H:%M:%S'))}.""", 400
             
         else:
             flash("Something went wrong-please try again")
@@ -58,25 +56,14 @@ def create_app(config):
         club = [c for c in clubs if c['name'] == request.form['club']][0]
         placesRequired = int(request.form['places'])
 
-        if placesRequired > 12:
-            return "You cannot book more than 12 places per competition", 400
-
-        if int(club['points']) < placesRequired:
-            flash("You do not have enough points left to book the place.")
-            return render_template('welcome.html', club=club, competitions=competitions)
-
-        club['points'] = int(club['points']) - placesRequired
-
         competition['numberOfPlaces'] = int(competition['numberOfPlaces'])-placesRequired
         flash('Great-booking complete!')
         return render_template('welcome.html', club=club, competitions=competitions)
 
-
     # TODO: Add route for points display
-
 
     @app.route('/logout')
     def logout():
         return redirect(url_for('index'))
-    
+
     return app
