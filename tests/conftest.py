@@ -22,6 +22,6 @@ def clubs():
     return [
         {
             "name": "She Lifts",
-            "points": "12"
+            "points": "5"
         }
     ]
