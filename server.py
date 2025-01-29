@@ -3,7 +3,7 @@ from datetime import datetime
 from flask import Flask, render_template, request, redirect, flash, url_for
 
 
-def create_app(config):
+def create_app(config=None, competitions=None, clubs=None):
     def loadClubs():
         with open('clubs.json') as c:
             listOfClubs = json.load(c)['clubs']
@@ -15,11 +15,12 @@ def create_app(config):
             return listOfCompetitions
 
     app = Flask(__name__)
-    app.config.from_object(config)
+    if config:
+        app.config.from_object(config)
     app.secret_key = 'something_special'
 
-    competitions = loadCompetitions()
-    clubs = loadClubs()
+    competitions = competitions if competitions is not None else loadCompetitions()
+    clubs = clubs if clubs is not None else loadClubs()
 
     @app.route('/')
     def index():
@@ -55,6 +56,9 @@ def create_app(config):
         competition = [c for c in competitions if c['name'] == request.form['competition']][0]
         club = [c for c in clubs if c['name'] == request.form['club']][0]
         placesRequired = int(request.form['places'])
+
+        if int(club['points']) >= placesRequired:
+            club['points'] = int(club['points']) - placesRequired
 
         competition['numberOfPlaces'] = int(competition['numberOfPlaces'])-placesRequired
         flash('Great-booking complete!')
