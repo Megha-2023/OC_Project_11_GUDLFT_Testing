@@ -3,8 +3,8 @@ from server import create_app
 
 
 @pytest.fixture
-def client():
-    app = create_app({"TESTING": True})
+def client(competitions, clubs):
+    app = create_app({"TESTING": True}, competitions=competitions, clubs=clubs)
     with app.test_client() as client:
         yield client
 
@@ -14,6 +14,8 @@ def clubs():
     return [
         {
             "name": "She Lifts",
-            "points": "5"
+            "email": "kate@shelifts.co.uk",
+            "points": "12"
         }
     ]
+
