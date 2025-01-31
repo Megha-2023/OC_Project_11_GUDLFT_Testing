@@ -57,6 +57,7 @@ def create_app(config=None, competitions=None, clubs=None):
         club = [c for c in clubs if c['name'] == request.form['club']][0]
         placesRequired = int(request.form['places'])
 
+<<<<<<< HEAD
         if placesRequired > 12:
             return "You cannot book more than 12 places per competition", 400
         
@@ -65,6 +66,10 @@ def create_app(config=None, competitions=None, clubs=None):
             return render_template('welcome.html', club=club, competitions=competitions)
         
         club['points'] = int(club['points']) - placesRequired
+=======
+        if int(club['points']) >= placesRequired:
+            club['points'] = int(club['points']) - placesRequired
+>>>>>>> bugfix/points_not_updated
 
         competition['numberOfPlaces'] = int(competition['numberOfPlaces'])-placesRequired
         flash('Great-booking complete!')
