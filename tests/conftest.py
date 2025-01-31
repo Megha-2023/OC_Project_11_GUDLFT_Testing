@@ -8,3 +8,12 @@ def client():
     with app.test_client() as client:
         yield client
 
+
+@pytest.fixture
+def clubs():
+    return [
+        {
+            "name": "She Lifts",
+            "points": "5"
+        }
+    ]

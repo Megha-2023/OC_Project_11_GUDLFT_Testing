@@ -1,5 +1,5 @@
 import json
-from flask import Flask,render_template,request,redirect,flash,url_for
+from flask import Flask, render_template, request, redirect, flash, url_for
 
 
 def create_app(config):
@@ -7,7 +7,6 @@ def create_app(config):
         with open('clubs.json') as c:
             listOfClubs = json.load(c)['clubs']
             return listOfClubs
-
 
     def loadCompetitions():
         with open('competitions.json') as comps:
@@ -49,6 +48,10 @@ def create_app(config):
         competition = [c for c in competitions if c['name'] == request.form['competition']][0]
         club = [c for c in clubs if c['name'] == request.form['club']][0]
         placesRequired = int(request.form['places'])
+
+        if int(club['points']) < placesRequired:
+            return f"You do not have enough points left to book the place. Points available:{club['points']}", 400
+
         competition['numberOfPlaces'] = int(competition['numberOfPlaces'])-placesRequired
         flash('Great-booking complete!')
         return render_template('welcome.html', club=club, competitions=competitions)
