@@ -3,7 +3,7 @@ class TestClubPointsDeduction:
 
     def test_points_deducted_correct(self, client, competitions, clubs):
         response = client.post("/purchasePlaces", data={
-            "competition": competitions[0]["competition"],
+            "competition": competitions[0]["name"],
             "club": clubs[0]["name"],
             "places": "10"
         })
@@ -12,9 +12,9 @@ class TestClubPointsDeduction:
 
     def test_points_deducted_wrong(self, client, competitions, clubs):
         response = client.post("/purchasePlaces", data={
-            "competition": competitions[0]["competition"],
+            "competition": competitions[0]["name"],
             "club": clubs[0]["name"],
-            "places": "13"
+            "places": "12"
         })
         assert response.status_code == 400
-        assert "You do not have enough points left to book the place." in response.data.decode()
+        assert "You do not have enough points left to book the place. Points available:" in response.data.decode()

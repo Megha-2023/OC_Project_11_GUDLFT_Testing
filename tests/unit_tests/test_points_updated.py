@@ -20,5 +20,5 @@ class TestPointsUpdated:
             "places": "15"
         })
         updated_points = int(clubs[0]["points"])
-        assert response.status_code == 200
+        assert response.status_code == 400
         assert updated_points == initial_points
