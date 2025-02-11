@@ -12,7 +12,7 @@ def client(competitions, clubs):
 @pytest.fixture
 def users():
     users = [
-        {"email": ["john@simplylift.co", "wrongemail@simplylift.co"]}
+        {"email": ["admin@irontemple.com", "wrongemail@simplylift.co"]}
     ]
     return users
 
@@ -38,6 +38,6 @@ def clubs():
         {
             "name": "Iron Temple",
             "email": "admin@irontemple.com",
-            "points": "11"
+            "points": "10"
         }
     ]
