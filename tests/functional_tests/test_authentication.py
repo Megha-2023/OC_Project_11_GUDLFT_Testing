@@ -30,7 +30,7 @@ class FunctionalTest(unittest.TestCase):
         
         self.driver.get("http://localhost:5000/")
 
-        time.sleep(5)
+        time.sleep(3)
         
         email = self.driver.find_element(By.NAME, 'email')
         email.send_keys("admin@irontemple.com")
@@ -38,7 +38,7 @@ class FunctionalTest(unittest.TestCase):
         login_button = self.driver.find_element(By.ID, 'login')
         login_button.click()
         
-        time.sleep(5)
+        time.sleep(3)
 
         assert self.driver.current_url == "http://localhost:5000/showSummary"
 
