@@ -7,10 +7,25 @@
 <body>
     <h1>Welcome to the GUDLFT Registration Portal!</h1>
     Please enter your secretary email to continue:
-    <form action="showSummary" method="post">
+    <form action="showSummary" method="POST" enctype="application/x-www-form-urlencoded">
         <label for="email">Email:</label>
-        <input type="email" name="email" id=""/>
-        <button type="submit">Enter</button>
+        <input type="email" name="email" id="sec_email"/>
+        <button type="submit" id="login">Enter</button>
     </form>
+    <br><br>
+    <h2>Clubs Details</h2>
+    <table border="1" width="200">
+        <tr>
+            <th>Club Name</th>
+            <th>Points</th>
+        </tr>
+        {% for club in clubs %}
+            <tr>
+                <td>{{club.name }}</td>
+                <td>{{club.points }}</td>
+            </tr>
+        {% endfor %}    
+    </table>
+
 </body>
 </html>
